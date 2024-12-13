@@ -2,7 +2,7 @@
 
 Your services will run isolated in [Docker containers](https://www.docker.com/resources/what-container). The setup is easy with the provided docker-compose.yml file, which is a declarative way to pull the images from the internet, create containers and configure everything with a single command!
 
-See the [subguide for Docker Compose](https://github.com/zilexa/Homeserver/tree/master/docker) on how to get up and running. *this is the unique part of this guide, a complete and carefully built working Docker-Compose.yml file with variables.*
+See the [subguide for Docker Compose](docker/README.md) on how to get up and running. *this is the unique part of this guide, a complete and carefully built working Docker-Compose.yml file with variables.*
 
 The best, well-maintained docker images have been selected, sometimes you spend hours finding the right one as there are often multiple available.  
 
@@ -28,7 +28,7 @@ Below a description and recommended or required configuration of each service th
 > All other services can still be accessed via a pretty domain, one that is only accessible within your LAN or when connected to your server via VPN. 
 - Required configuration: Caddy is near-zero configuration but does require you to do your homework first.
   - _To access services via internet securily:_
-    - Complete [Step 3. Network Configuration](https://github.com/zilexa/Homeserver/blob/master/network-configuration.md) of the main guide.
+    - Complete [Step 4: Network Configuration](network-configuration.md) of the main guide.
     - personalize the docker-compose file by editing the .env file and setting your own registered domain name and email address.
     - (Optional) personalize the docker-compose file by changing the subdomains (files., vault., firefox.) to your liking, matching the configuration of your domain provider.
   - _To access local services via a pretty domain name:_`
@@ -68,10 +68,10 @@ _Your own recursive DNS server to stop sharing your browsing history with the wo
 > Note your server IP when connected via VPN will be `10.0.0.0` and clients will start at `10.0.0.1`. 
 
 _Server configuration_ 
-- Personalize docker-compose by editing your (hidden) `/home/username/docker/.env` file [see example](https://github.com/zilexa/Homeserver/blob/master/docker/.env).
+- Personalize docker-compose by editing your (hidden) `/home/username/docker/.env` file [see example](docker/.env).
   1. Set a user/pw for VPN-Portal access
   2. Generate a key for VPN-Portal access encryption key `WGPORTALSECRET`, see the command listed in the file under section TOKENS.  
-  3. your registered domain name `yourdomain.tld` (see [Step 3. Network Configuration](https://github.com/zilexa/Homeserver/blob/master/network-configuration.md)) 
+  3. your registered domain name `yourdomain.tld` (see [Step 4: Network Configuration](network-configuration.md)) 
   4. your SMTP provider credentials, required to sent clients a QR code or conf file for access.
   5. verify `WGPORT` is properly forwarded in your router and `LAN_ADDRESS_RANGE` corresponds with your router DHCP range. 
   6. Set the correct LAN network device in `POSTUP` and `POSTDOWN` by changing `eno1` to yours, can be found via command `ip route`, the value next to "dev" on the 'default' or first line. 
@@ -113,7 +113,7 @@ _Client configuration_
 - Required documentation:
   - Follow the documentation to login to the admin environment (hint: the secret in your `.env` file). 
     - User registeration is disabled by default, you can invite users via email.
-    - Fill in your SMTP credentials first and perform the test. See [E-mail notifications](https://github.com/zilexa/Homeserver/blob/master/network-configuration.md#email-notifications) in [Step 3. Network Configuration](https://github.com/zilexa/Homeserver/blob/master/network-configuration.md).   
+    - Fill in your SMTP credentials first and perform the test. See [E-mail notifications](network-configuration.md#email-notifications) in [Step 4: Network Configuration](network-configuration.md).   
 
 ### _Files cloud_ via FileRun - [documentation](https://docs.filerun.com/) and [support](https://feedback.filerun.com)_ 
 >Mobile Apps: [CX File Explorer](https://play.google.com/store/apps/details?id=com.cxinventor.file.explorer) (for file browsing) and [FolderSync](https://play.google.com/store/apps/details?id=dk.tacit.android.foldersync.lite) (for 2-way or 1-way sync, automated or scheduled) or Goodreader for iOS.
@@ -123,7 +123,7 @@ _Client configuration_
 - Required configuration: 
 - walk through the Control Panel and personalize at will. 
 - In `Plugins`, enable what you need, disable overlapping stuff that you do not need. In `defaults` it is recommended to use `Office web viewer` for Office documents instead of alternatives.
-- In `E-mail` disable "instant notifications" to prevent users from being flooded with hundreds of emails when shared files are being downloaded. See [Maintenance & Scheduling](https://github.com/zilexa/Homeserver/tree/master/maintenance-tasks#step-6-schedule-nightly-and-monthly), cron will be used to sent notifications every 5min. 
+- In `E-mail` disable "instant notifications" to prevent users from being flooded with hundreds of emails when shared files are being downloaded. See [Maintenance & Scheduling](Maintenance-guide/README.md#step-2-schedule-monthly), cron will be used to sent notifications every 5min. 
 - OnlyOffice DocumentServer unfortunately does not work properly, otherwise you could configure OnlyOffice as default to edit office documents (having your own google docs/office online alternative!). 
 
 **How to sync devices, external users laptops**
@@ -132,7 +132,7 @@ _Client configuration_
 > - For mobile devices, to surf through your files, [CX File Explorer](https://play.google.com/store/apps/details?id=com.cxinventor.file.explorer) is very user-friendly.
 > - For desktops and laptops and to keep your parents PC user files in-sync, consider webDAV as well. For Linux, the NextCloud Desktop client is the obvious choice as it is the only tool that does 2-way sync.
 > - The Nextcloud mobile app works with FileRun but CX File Explorer (4.8 stars) is so much better and easier to use. It is a swift and friendly Android file manager that allows you to add your FileRun instance via WebDAV. Compared to the Nextcloud app, it allows you to easily switch between your local storage and your cloud, copying files betweeen them.
-> - Alternatively, [Setup NFS](https://github.com/zilexa/Homeserver/tree/master/network%20share%20(NFSv4.2)) a zero-overhead solution used in datacenters, the fastest way to share files/folders with other devices (laptops/PCs) via your local home network.
+> - Alternatively, [Setup NFS](networkshares_HowTo-NFSv4.2/README.md) a zero-overhead solution used in datacenters, the fastest way to share files/folders with other devices (laptops/PCs) via your local home network.
 
 ### _Your own browser sync engine via Firefox Sync - [documentation](https://github.com/mozilla-services/syncserver)_
 >By running your own Firefox Sync server, all your history, bookmarks, cookies, logins of Firefox on all your devices (phones, tablets, laptops) can be synced with your own server instead of Mozilla.\
